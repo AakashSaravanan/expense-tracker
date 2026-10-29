@@ -85,6 +85,7 @@ def add_transaction():
 
     return render_template("add_transaction.html", categories=categories)
 
+
 @transaction_routes.route(
     "/transactions/<int:transaction_id>/edit",
     methods=["GET", "POST"]

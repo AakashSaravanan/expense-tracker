@@ -3,6 +3,7 @@ from config.database import db
 from models.user import User
 from functools import wraps
 
+
 def login_required(route_function):
     @wraps(route_function)
     def wrapper(*args, **kwargs):
@@ -12,6 +13,7 @@ def login_required(route_function):
         return route_function(*args, **kwargs)
 
     return wrapper
+
 
 auth_routes = Blueprint("auth_routes", __name__)
 
@@ -71,6 +73,7 @@ def logout():
     session.clear()
 
     return redirect(url_for("home"))
+
 
 @auth_routes.route("/dashboard")
 @login_required

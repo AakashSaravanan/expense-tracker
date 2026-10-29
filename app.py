@@ -11,7 +11,7 @@ from config.database import db, init_db
 
 import os
 from werkzeug.utils import secure_filename
-from models.user import User
+from models.user import User  # noqa: F401
 from models.category import Category
 from models.transaction import Transaction
 from routes.auth_routes import auth_routes
@@ -35,9 +35,11 @@ init_db(app)
 app.register_blueprint(auth_routes)
 app.register_blueprint(transaction_routes)
 
+
 @app.route("/")
 def home():
     return render_template("home.html")
+
 
 @app.route("/dashboard")
 @login_required
@@ -114,6 +116,7 @@ def dashboard():
         category_expenses=category_expenses
     )
 
+
 @app.route("/add-transaction", methods=["GET", "POST"])
 @login_required
 def add_transaction():
@@ -139,7 +142,7 @@ def add_transaction():
                     app.config["UPLOAD_FOLDER"],
                     receipt_filename
                 )
-        )
+                )
 
         transaction = Transaction(
             amount=amount,
@@ -162,6 +165,7 @@ def add_transaction():
         "add_transaction.html",
         categories=categories
     )
+
 
 @app.route("/edit-transaction/<int:transaction_id>", methods=["GET", "POST"])
 @login_required
@@ -207,6 +211,7 @@ def delete_transaction(transaction_id):
 
     return redirect(url_for("dashboard"))
 
+
 @app.route("/uploads/<filename>")
 @login_required
 def uploaded_file(filename):
@@ -215,6 +220,7 @@ def uploaded_file(filename):
         app.config["UPLOAD_FOLDER"],
         filename
     )
+
 
 @app.route("/health")
 def health():
